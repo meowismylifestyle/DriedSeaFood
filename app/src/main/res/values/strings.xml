@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="nav_search">Search</string>
+    <string name="showresult_selected_image">INPUT PHOTO</string>
+    <string name="showresult_predicted_fish">RESULT</string>
+</resources>

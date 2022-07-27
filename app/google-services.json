@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "624349548932",
+    "firebase_url": "https://forfun-48a6b-default-rtdb.firebaseio.com",
+    "project_id": "forfun-48a6b",
+    "storage_bucket": "forfun-48a6b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624349548932:android:779eff52f74c9dc3184dd1",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "624349548932-unjvsss664qlq5orf4fdgtdukkikv8vh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNftxvSUGcJJ07p0OYqIWOmfFD94xDkH0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624349548932-unjvsss664qlq5orf4fdgtdukkikv8vh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
