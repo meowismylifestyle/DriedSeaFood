@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,25 +47,28 @@ public class ShowResultFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        selectedImageView = view.findViewById(R.id.selected_image_view);
-        predictedFishImageView = view.findViewById(R.id.predicted_image);
-        predictedFishName = view.findViewById(R.id.name_fish);
-        predictedFishPrice = view.findViewById(R.id.price_fish);
+        if (view != null) {
+            selectedImageView = view.findViewById(R.id.selected_image_view);
+            predictedFishImageView = view.findViewById(R.id.predicted_image);
+            predictedFishName = view.findViewById(R.id.name_fish);
+            predictedFishPrice = view.findViewById(R.id.price_fish);
 //        confidenceTextView = view.findViewById(R.id.confidence_TextView);
 
-        selectedImageView.setImageBitmap(this.selectedImage);
+            selectedImageView.setImageBitmap(this.selectedImage);
 
-        if (predictedFish != null) {
-            predictedFishImageView.setImageBitmap (
-                    BitmapFactory.decodeResource (
-                            view.getContext().getResources(),
-                            predictedFish.getImage()
-                    )
-            );
-            predictedFishName.setText(predictedFish.getName());
-            predictedFishPrice.setText(predictedFish.getPrice());
-            confidenceTextView.setText(confidence);
-        }
+            if (predictedFish != null) {
+                predictedFishImageView.setImageBitmap (
+                        BitmapFactory.decodeResource (
+                                view.getContext().getResources(),
+                                predictedFish.getImage()
+                        )
+                );
+                predictedFishName.setText(predictedFish.getName());
+                predictedFishPrice.setText(predictedFish.getPrice());
+                // confidenceTextView.setText(confidence);
+            }
+        } else
+            Log.d("ShowResultFragment", "onCreateView: view is null");
 
         return view;
     }

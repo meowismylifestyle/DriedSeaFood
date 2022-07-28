@@ -1,10 +1,12 @@
 package com.example.myapplication;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.SearchManager;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -17,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.SearchView;
 
 import androidx.activity.result.ActivityResult;
@@ -26,8 +27,11 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,13 +41,12 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
@@ -57,21 +60,30 @@ public class SearchFragment extends Fragment {
     private ImageButton buttonAddPhoto;
     private ImageButton buttonSelectPhoto;
     private View view;
+    private FragmentActivity activity;
+    private Context context;
     final int imageSize = 224;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = getActivity();
+        if (activity == null)
+            Log.d("SearchFragment", "onCreate: activity is null");
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = super.onCreateView(inflater, container, savedInstanceState);
-        rcvFish = view.findViewById(R.id.rcv_fish);
-        searchView = view.findViewById(R.id.searchView);
-        buttonAddPhoto = view.findViewById(R.id.btn_add_photo);
-        buttonSelectPhoto = view.findViewById(R.id.btn_select_photo);
+        if (view != null) {
+            context = view.getContext();
+            rcvFish = view.findViewById(R.id.rcv_fish);
+            searchView = view.findViewById(R.id.searchView);
+            buttonAddPhoto = view.findViewById(R.id.btn_add_photo);
+            buttonSelectPhoto = view.findViewById(R.id.btn_select_photo);
+        } else
+            Log.d("SearchFragment", "onCreateView: view is null");
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         rcvFish.setLayoutManager(linearLayoutManager);
@@ -82,8 +94,8 @@ public class SearchFragment extends Fragment {
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL);
         rcvFish.addItemDecoration(itemDecoration);
 
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        SearchManager searchManager = (SearchManager) activity.getSystemService(Context.SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(activity.getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -101,12 +113,34 @@ public class SearchFragment extends Fragment {
         });
 
         buttonAddPhoto.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("QueryPermissionsNeeded")
             @Override
             public void onClick(View view) {
                 currentPhotoPath = "";
 
+                String[] requiredPermissions = {
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                };
+
+                boolean grantedAllPermissions = true;
+                for (String permission : requiredPermissions) {
+                    if (ContextCompat.checkSelfPermission(context, permission)
+                    == PackageManager.PERMISSION_DENIED)
+                        grantedAllPermissions = false;
+                }
+
+                if (!grantedAllPermissions) {
+                    ActivityCompat.requestPermissions(
+                            activity,
+                            requiredPermissions,
+                            100
+                    );
+                }
+
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
                     File photoFile = null;
                     try {
                         photoFile = createImageFile();
@@ -150,6 +184,7 @@ public class SearchFragment extends Fragment {
         });
 
         buttonSelectPhoto.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("IntentReset")
             @Override
             public void onClick(View view) {
                 Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -190,7 +225,7 @@ public class SearchFragment extends Fragment {
     }
 
     private void showResult(Bitmap imageBitmap, Pair<Fish_Item, String> predictedResult) {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
         Fragment showResultFragment = new ShowResultFragment(imageBitmap, predictedResult.first, predictedResult.second);
         fragmentManager.beginTransaction()
                 .replace(R.id.flContent, showResultFragment)
@@ -202,22 +237,31 @@ public class SearchFragment extends Fragment {
 
     private File createImageFile() throws IOException {
         // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
 //        File storageDir = view.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES + "/FindYourDriedFish");
-        if (!storageDir.exists()) {
-            storageDir.mkdirs();
-        }
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES + File.separator + "FindYourDriedFish"
         );
+        boolean storageDirExist = storageDir.exists();
+        if (!storageDirExist) {
+            Log.d("SearchFragment", "createImageFile: storageDir not exists");
+            storageDirExist = storageDir.mkdirs();
+        }
 
-        // Save a file: path for use with ACTION_VIEW intents
-        currentPhotoPath = image.getAbsolutePath();
-        return image;
+        if (storageDirExist) {
+            File image = File.createTempFile(
+                    imageFileName,  /* prefix */
+                    ".jpg",         /* suffix */
+                    storageDir      /* directory */
+            );
+
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = image.getAbsolutePath();
+            return image;
+        }
+
+        return null;
     }
 
     private void galleryAddPic() {
@@ -250,10 +294,11 @@ public class SearchFragment extends Fragment {
         return list;
     }
 
+    @SuppressLint("DefaultLocale")
     Pair<Fish_Item, String> classifyImage(Bitmap image) {
         try {
             image = Bitmap.createScaledBitmap(image, imageSize, imageSize, false);
-            Model model = Model.newInstance(getActivity().getApplicationContext());
+            Model model = Model.newInstance(activity.getApplicationContext());
 
             // Creates inputs for reference.
             TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
@@ -263,7 +308,6 @@ public class SearchFragment extends Fragment {
             // get 1D array of 224 * 224 pixels in image
             int [] intValues = new int[imageSize * imageSize];
 
-            //TODO: bug on next line
             image.getPixels(intValues, 0, image.getWidth(), 0, 0, image.getWidth(), image.getHeight());
 
             // iterate over pixels and extract R, G, and B values. Add to bytebuffer.
@@ -310,7 +354,7 @@ public class SearchFragment extends Fragment {
                 }
             }
 
-            return new Pair<Fish_Item, String>(returnFish, confidence);
+            return new Pair<>(returnFish, confidence);
 
         } catch (IOException e) {
             e.printStackTrace();
