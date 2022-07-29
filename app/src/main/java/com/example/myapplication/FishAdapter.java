@@ -1,11 +1,13 @@
 package com.example.myapplication;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,6 +46,11 @@ public class FishAdapter extends RecyclerView.Adapter<FishAdapter.FishViewHolder
         holder.imgFish.setImageResource(fish.getImage());
         holder.Name.setText(fish.getName());
         holder.Price.setText(fish.getPrice());
+
+        if (fish.isFavourite())
+            holder.addToFavouriteButton.setImageResource(R.drawable.ic_baseline_favorite_24);
+        else
+            holder.addToFavouriteButton.setImageResource(R.drawable.ic_baseline_shadow_favorite_24);
     }
 
     @Override
@@ -88,7 +95,7 @@ public class FishAdapter extends RecyclerView.Adapter<FishAdapter.FishViewHolder
         private CircleImageView imgFish;
         private TextView Name;
         private TextView Price;
-        private Button addToFavouriteButton;
+        private ImageButton addToFavouriteButton;
 
         public FishViewHolder (@NonNull View itemView){
             super(itemView);
@@ -103,7 +110,15 @@ public class FishAdapter extends RecyclerView.Adapter<FishAdapter.FishViewHolder
                     int position = getAbsoluteAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Fish_Item selectedFish = mListFish.get(position);
-                        LoginActivity.currentUser.addFavouriteFish(selectedFish.getClassLabel());
+
+                        if (!selectedFish.isFavourite()) {
+                            LoginActivity.currentUser.addFavouriteFish(selectedFish.getClassLabel());
+                            addToFavouriteButton.setImageResource(R.drawable.ic_baseline_favorite_24);
+                        } else {
+                            LoginActivity.currentUser.removeFavouriteFish(selectedFish.getClassLabel());
+                            addToFavouriteButton.setImageResource(R.drawable.ic_baseline_shadow_favorite_24);
+                        }
+
                         LoginActivity.currentUserReference.setValue(LoginActivity.currentUser);
                     }
                 }

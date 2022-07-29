@@ -1,7 +1,10 @@
 package com.example.myapplication;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class User {
@@ -81,6 +84,16 @@ public class User {
         return favouriteFishes;
     }
 
+    public ArrayList<Fish_Item> getFavouriteFishItem() {
+        ArrayList<Fish_Item> allFish = SearchFragment.getListFish();
+        ArrayList<Fish_Item> favFish = new ArrayList<>();
+        for (Fish_Item fish : allFish) {
+            if (favouriteFishes.contains(fish.getClassLabel()))
+                favFish.add(fish);
+        }
+        return favFish;
+    }
+
     public void setFavouriteFishes(ArrayList<String> favouriteFishes) {
         this.favouriteFishes = favouriteFishes;
     }
@@ -101,5 +114,10 @@ public class User {
         if (!this.favouriteFishes.contains(fish)) {
             this.favouriteFishes.add(fish);
         }
+    }
+
+    public void removeFavouriteFish(String fish) {
+        if (favouriteFishes != null)
+            favouriteFishes.remove(fish);
     }
 }

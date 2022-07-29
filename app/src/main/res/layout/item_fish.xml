@@ -42,13 +42,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_name" />
-        <Button
+        <ImageButton
             android:id="@+id/favBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="18dp"
-            android:background="@drawable/ic_baseline_favorite_24"
+            android:src="@drawable/ic_baseline_shadow_favorite_24"
+            android:background="@android:color/transparent"
             android:layout_gravity="bottom|end"/>
     </LinearLayout>
     </LinearLayout>

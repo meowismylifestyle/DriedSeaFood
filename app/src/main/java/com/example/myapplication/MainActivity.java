@@ -61,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
         // Set the Search Fragment as the default fragment when open the app
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment defaultFragment = new SearchFragment();
-        fragmentManager.beginTransaction().replace(R.id.flContent, defaultFragment).commit();
+        fragmentManager.beginTransaction()
+                .replace(R.id.flContent, defaultFragment)
+                .commit();
         // Highlight the selected item has been done by NavigationView
         nvDrawer.setCheckedItem(R.id.nav_search_fragment);
         // Set action bar title
@@ -134,7 +136,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        fragmentManager.beginTransaction()
+                .replace(R.id.flContent, fragment)
+                .commit();
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);

@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import java.util.ArrayList;
+
 public class Fish_Item {
     private  int image;
     private String name;
@@ -50,6 +52,16 @@ public class Fish_Item {
         this.name = name;
         this.price = price;
         this.classLabel = classLabel;
+    }
+
+    public boolean isLabel(String label) {
+        return this.classLabel.equals(label);
+    }
+
+    public boolean isFavourite() {
+        if (LoginActivity.currentUser == null)
+            return false;
+        return LoginActivity.currentUser.getFavouriteFishes().contains(this.classLabel);
     }
 
 }

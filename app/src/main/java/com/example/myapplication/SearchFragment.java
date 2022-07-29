@@ -67,6 +67,7 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         activity = getActivity();
         if (activity == null)
             Log.d("SearchFragment", "onCreate: activity is null");
@@ -272,8 +273,8 @@ public class SearchFragment extends Fragment {
         view.getContext().sendBroadcast(mediaScanIntent);
     }
 
-    private List<Fish_Item> getListFish() {
-        List<Fish_Item> list = new ArrayList<>();
+    public static ArrayList<Fish_Item> getListFish() {
+        ArrayList<Fish_Item> list = new ArrayList<>();
         list.add(new Fish_Item(R.drawable.image1,"Khô cá Dứa","100.000/kg", "dua"));
         list.add(new Fish_Item(R.drawable.image2,"Khô cá Lóc","200.000/kg", "loc"));
         list.add(new Fish_Item(R.drawable.image3,"Khô cá Sặc","120.000/kg", "sac"));
@@ -346,9 +347,9 @@ public class SearchFragment extends Fragment {
             Fish_Item returnFish = new Fish_Item(R.drawable.ic_block, "Unknown", "Unknown", "Unknown");
             String confidence = "0.0%";
 
-            List<Fish_Item> fishItems = getListFish();
+            ArrayList<Fish_Item> fishItems = getListFish();
             for (Fish_Item fish : fishItems) {
-                if (fish.getClassLabel().equals(predictedClass)) {
+                if (fish.isLabel(predictedClass)) {
                     returnFish = fish;
                     confidence = String.format("%.1f%%", maxConfidence * 100);
                 }

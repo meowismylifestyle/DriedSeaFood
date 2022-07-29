@@ -15,13 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.IntentCompat;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,18 +24,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONObject;
-import org.tensorflow.lite.schema.AddOptions;
-
-import java.util.List;
-
-
 public class LoginActivity extends AppCompatActivity {
-    private EditText emailEdit, passEdit;
-    private Button buttonLogin;
-    private TextView forgetPassword, buttonRegister;
-    private ProgressBar progressBar;
+    EditText emailEdit, passEdit;
+    Button buttonLogin;
+    TextView forgetPassword, buttonRegister;
+    ProgressBar progressBar;
 
     public static FirebaseAuth mAuth;
     public static FirebaseUser firebaseUser;
@@ -63,26 +50,11 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
         forgetPassword = findViewById(R.id.forgotpassword);
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login();
-            }
-        });
+        buttonLogin.setOnClickListener(v -> login());
 
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                register();
-            }
-        });
+        buttonRegister.setOnClickListener(v -> register());
 
-        forgetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                forgetpass();
-            }
-        });
+        forgetPassword.setOnClickListener(v -> forgetPassword());
     }
 
     private void register() {
@@ -90,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    private void forgetpass(){
+    private void forgetPassword(){
         Intent i = new Intent(LoginActivity.this,ForgotPassword.class);
         startActivity(i);
     }
@@ -116,70 +88,68 @@ public class LoginActivity extends AppCompatActivity {
 
         // Try sign-in with user-typed email and password
         mAuth.signInWithEmailAndPassword(email,pass)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    firebaseUser = LoginActivity.mAuth.getCurrentUser();
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        firebaseUser = LoginActivity.mAuth.getCurrentUser();
 
-                    // Check if account is verified via email
-                    if (firebaseUser != null && firebaseUser.isEmailVerified()) {
+                        // Check if account is verified via email
+                        if (firebaseUser != null && firebaseUser.isEmailVerified()) {
 
-                        // If account is verified, get the database reference
-                        // and retrieve user's information
-                        Toast.makeText(
-                                getApplicationContext(),
-                                "Login Successfully!",
-                                Toast.LENGTH_SHORT
-                        ).show();
+                            // If account is verified, get the database reference
+                            // and retrieve user's information
+                            Toast.makeText(
+                                    getApplicationContext(),
+                                    "Login Successfully!",
+                                    Toast.LENGTH_SHORT
+                            ).show();
 
-                        // Get database reference
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        currentUserReference = database
-                                .getReference("Users")
-                                .child(firebaseUser.getUid());
+                            // Get database reference
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            currentUserReference = database
+                                    .getReference("Users")
+                                    .child(firebaseUser.getUid());
 
-                        // Retrieve user's information
-                        currentUserReference
-                                .addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                LoginActivity.currentUser = snapshot.getValue(User.class);
-                            }
+                            // Retrieve user's information
+                            currentUserReference
+                                    .addListenerForSingleValueEvent(
+                                            new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    LoginActivity.currentUser = snapshot.getValue(User.class);
+                                }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Log.d("LoginActivity", "get data failed");
-                            }
-                        });
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Log.d("LoginActivity", "get data failed");
+                                }
+                            });
 
-                        // Move to MainActivity
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        ActivityCompat.finishAffinity(LoginActivity.this);
+                            // Move to MainActivity
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            ActivityCompat.finishAffinity(LoginActivity.this);
+
+                        } else {
+
+                            // If account is not verified, show the Toast message to user
+                            Toast.makeText(
+                                    getApplicationContext(),
+                                    "You haven't verified your account!\nPlease check your email to verify your account!",
+                                    Toast.LENGTH_LONG
+                            ).show();
+                        }
 
                     } else {
 
-                        // If account is not verified, show the Toast message to user
+                        // If sign-in unsuccessfully, show the Toast notification
                         Toast.makeText(
                                 getApplicationContext(),
-                                "You haven't verified your account!\nPlease check your email to verify your account!",
+                                "Can't Login!\nCheck your email or password",
                                 Toast.LENGTH_LONG
                         ).show();
                     }
-
-                } else {
-
-                    // If sign-in unsuccessfully, show the Toast notification
-                    Toast.makeText(
-                            getApplicationContext(),
-                            "Can't Login!\nCheck your email or password",
-                            Toast.LENGTH_LONG
-                    ).show();
-                }
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+                    progressBar.setVisibility(View.GONE);
+                });
     }
 }
