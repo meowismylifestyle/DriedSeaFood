@@ -3,12 +3,16 @@ package com.example.myapplication;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,12 +88,26 @@ public class FishAdapter extends RecyclerView.Adapter<FishAdapter.FishViewHolder
         private CircleImageView imgFish;
         private TextView Name;
         private TextView Price;
+        private Button addToFavouriteButton;
 
         public FishViewHolder (@NonNull View itemView){
             super(itemView);
             imgFish = itemView.findViewById(R.id.img_fish);
             Name = itemView.findViewById(R.id.name_fish);
             Price = itemView.findViewById(R.id.price_fish);
+            addToFavouriteButton = itemView.findViewById(R.id.favBtn);
+
+            addToFavouriteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAbsoluteAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Fish_Item selectedFish = mListFish.get(position);
+                        LoginActivity.currentUser.addFavouriteFish(selectedFish.getClassLabel());
+                        LoginActivity.currentUserReference.setValue(LoginActivity.currentUser);
+                    }
+                }
+            });
         }
 
     }

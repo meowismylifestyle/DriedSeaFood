@@ -6,6 +6,9 @@ public class Fish_Item {
     private String price;
     private String classLabel;
 
+    public Fish_Item() {
+    }
+
     public int getImage() {
         return image;
     }
@@ -31,6 +34,16 @@ public class Fish_Item {
     }
 
     public String getClassLabel() { return this.classLabel; }
+
+    @Override
+    public String toString() {
+        return "Fish_Item{" +
+                "image=" + image +
+                ", name='" + name + '\'' +
+                ", price='" + price + '\'' +
+                ", classLabel='" + classLabel + '\'' +
+                '}';
+    }
 
     public Fish_Item(int image, String name, String price, String classLabel) {
         this.image = image;

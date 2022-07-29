@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static com.example.myapplication.LoginActivity.mAuth;
+
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -19,9 +21,6 @@ public class ForgotPassword extends AppCompatActivity {
     private EditText emailEdt;
     private Button resetPass;
 
-
-    FirebaseAuth auth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +28,6 @@ public class ForgotPassword extends AppCompatActivity {
 
         emailEdt = findViewById(R.id.email_forgot);
         resetPass = findViewById(R.id.resetPassword);
-
-
-        auth = FirebaseAuth.getInstance();
 
         resetPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +52,7 @@ public class ForgotPassword extends AppCompatActivity {
             return;
         }
 
-        auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
