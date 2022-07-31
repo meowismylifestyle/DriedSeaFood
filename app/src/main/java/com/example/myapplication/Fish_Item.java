@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Fish_Item {
@@ -56,6 +57,19 @@ public class Fish_Item {
 
     public boolean isLabel(String label) {
         return this.classLabel.equals(label);
+    }
+
+    public static String[] getClassLabelList(ArrayList<Fish_Item> fishItems) {
+        ArrayList<String> labels = new ArrayList<>();
+        for (Fish_Item fish : fishItems) {
+            String label = fish.getClassLabel();
+            if (!labels.contains(label)) {
+                labels.add(label);
+            }
+        }
+        String[] result = new String[labels.size()];
+        result = labels.toArray(result);
+        return result;
     }
 
     public boolean isFavourite() {

@@ -274,24 +274,58 @@ public class SearchFragment extends Fragment {
     }
 
     public static ArrayList<Fish_Item> getListFish() {
+//        ArrayList<Fish_Item> list = new ArrayList<>();
+//        list.add(new Fish_Item(R.drawable.image1,"Khô cá Dứa","100.000/kg", "dua"));
+//        list.add(new Fish_Item(R.drawable.image2,"Khô cá Lóc","200.000/kg", "loc"));
+//        list.add(new Fish_Item(R.drawable.image3,"Khô cá Sặc","120.000/kg", "sac"));
+//        list.add(new Fish_Item(R.drawable.image4,"Khô cá Đù","130.000/kg", "du"));
+//        list.add(new Fish_Item(R.drawable.image5,"Khô cá Khoai","140.000/kg", "khoai"));
+//        list.add(new Fish_Item(R.drawable.image6,"Khô cá Chỉ Vàng","150.000/kg", "chivang"));
+//        list.add(new Fish_Item(R.drawable.image7,"Khô cá Cơm","160.000/kg", "com"));
+//        list.add(new Fish_Item(R.drawable.image8,"Khô cá Đuối","210.000/kg", "duoi"));
+//        list.add(new Fish_Item(R.drawable.image9,"Khô cá Mối","190.000/kg", "moi"));
+//        list.add(new Fish_Item(R.drawable.image10,"Khô cá Trạch","90.000/kg", "chach"));
+//        list.add(new Fish_Item(R.drawable.image11,"Khô cá Sửu","190.000/kg", "suu"));
+//        list.add(new Fish_Item(R.drawable.image12,"Khô cá Tra","80.000/kg", "tra"));
+//        list.add(new Fish_Item(R.drawable.image13,"Khô cá Lưỡi Trâu","170.000/kg", "luoitrau"));
+//        list.add(new Fish_Item(R.drawable.image14,"Khô cá Kèo","110.000/kg", "keo"));
+//        list.add(new Fish_Item(R.drawable.image15,"Khô cá Thòi Lòi","175.000/kg", "thoiloi"));
+//        list.add(new Fish_Item(R.drawable.image16,"Khô cá Đét","195.000/kg", "det"));
+//        list.add(new Fish_Item(R.drawable.image17,"Khô cá Lòng Tong","230.000/kg", "longtong"));
+//        return list;
+
         ArrayList<Fish_Item> list = new ArrayList<>();
-        list.add(new Fish_Item(R.drawable.image1,"Khô cá Dứa","100.000/kg", "dua"));
-        list.add(new Fish_Item(R.drawable.image2,"Khô cá Lóc","200.000/kg", "loc"));
-        list.add(new Fish_Item(R.drawable.image3,"Khô cá Sặc","120.000/kg", "sac"));
-        list.add(new Fish_Item(R.drawable.image4,"Khô cá Đù","130.000/kg", "du"));
-        list.add(new Fish_Item(R.drawable.image5,"Khô cá Khoai","140.000/kg", "khoai"));
-        list.add(new Fish_Item(R.drawable.image6,"Khô cá Chỉ Vàng","150.000/kg", "chivang"));
-        list.add(new Fish_Item(R.drawable.image7,"Khô cá Cơm","160.000/kg", "com"));
-        list.add(new Fish_Item(R.drawable.image8,"Khô cá Đuối","210.000/kg", "duoi"));
-        list.add(new Fish_Item(R.drawable.image9,"Khô cá Mối","190.000/kg", "moi"));
-        list.add(new Fish_Item(R.drawable.image10,"Khô cá Trạch","90.000/kg", "chach"));
-        list.add(new Fish_Item(R.drawable.image11,"Khô cá Sửu","190.000/kg", "suu"));
-        list.add(new Fish_Item(R.drawable.image12,"Khô cá Tra","80.000/kg", "tra"));
-        list.add(new Fish_Item(R.drawable.image13,"Khô cá Lưỡi Trâu","170.000/kg", "luoitrau"));
-        list.add(new Fish_Item(R.drawable.image14,"Khô cá Kèo","110.000/kg", "keo"));
-        list.add(new Fish_Item(R.drawable.image15,"Khô cá Thòi Lòi","175.000/kg", "thoiloi"));
-        list.add(new Fish_Item(R.drawable.image16,"Khô cá Đét","195.000/kg", "det"));
-        list.add(new Fish_Item(R.drawable.image17,"Khô cá Lòng Tong","230.000/kg", "longtong"));
+        list.add(new Fish_Item(R.drawable.bong, "Khô cá Bống","270.000/kg","bong"));
+        list.add(new Fish_Item(R.drawable.chach, "Khô cá Chạch","460.000/kg","chach"));
+        list.add(new Fish_Item(R.drawable.chivang, "Khô cá Chỉ Vàng","210.000/kg","chivang"));
+        list.add(new Fish_Item(R.drawable.chot, "Khô cá Chốt","270.000/kg","chot"));
+        list.add(new Fish_Item(R.drawable.com, "Khô cá Cơm","180.000/kg","com"));
+        list.add(new Fish_Item(R.drawable.det, "Khô cá Đét","230.000/kg","det"));
+        list.add(new Fish_Item(R.drawable.dong, "Khô cá Đỏng","180.000/kg","dong"));
+        list.add(new Fish_Item(R.drawable.du, "Khô cá Đù","160.000/kg","du"));
+        list.add(new Fish_Item(R.drawable.dua, "Khô cá Dứa","180.000/kg","dua"));
+        list.add(new Fish_Item(R.drawable.duoi, "Khô cá Đuối","270.000/kg","duoi"));
+        list.add(new Fish_Item(R.drawable.ho, "Khô cá Hố","200.000/kg","ho"));
+        list.add(new Fish_Item(R.drawable.keo, "Khô cá Kèo","300.000/kg","keo"));
+        list.add(new Fish_Item(R.drawable.khoai, "Khô cá Khoai","380.000/kg","khoai"));
+        list.add(new Fish_Item(R.drawable.loc, "Khô cá Lóc","240.000/kg","loc"));
+        list.add(new Fish_Item(R.drawable.longtong, "Khô cá Lòng Tong","440.000/kg","longtong"));
+        list.add(new Fish_Item(R.drawable.luoitrau, "Khô cá Lưỡi Trâu","350.000/kg","luoitrau"));
+        list.add(new Fish_Item(R.drawable.mai, "Khô cá Mai","370.000/kg","mai"));
+        list.add(new Fish_Item(R.drawable.moi, "Khô cá Mối","240.000/kg","moi"));
+        list.add(new Fish_Item(R.drawable.muc, "Khô Mực","900.000/kg","muc"));
+        list.add(new Fish_Item(R.drawable.nhai, "Khô cá Nhái","500.000/kg","nhai"));
+        list.add(new Fish_Item(R.drawable.nhong, "Khô cá Nhồng","200.000/kg","nhong"));
+        list.add(new Fish_Item(R.drawable.nuc, "Khô cá Nục","85.000/kg","nuc"));
+        list.add(new Fish_Item(R.drawable.ruoc,"Khô cá Ruốc","79.000/kg","ruoc"));
+        list.add(new Fish_Item(R.drawable.sac, "Khô cá Sặc","270.000/kg","sac"));
+        list.add(new Fish_Item(R.drawable.thieu, "Khô cá Thiều","85.000 ~ 650.000/kg","thieu"));
+        list.add(new Fish_Item(R.drawable.thoiloi, "Khô cá Thòi Lòi","530.000/kg","thoiloi"));
+        list.add(new Fish_Item(R.drawable.thu, "Khô cá Thu","270/kg","thu"));
+        list.add(new Fish_Item(R.drawable.tom_80, "Khô Tôm","1.350.000/kg","tom"));
+        list.add(new Fish_Item(R.drawable.tren_60, "Khô cá Trèn","500.000/kg","tren"));
+        list.add(new Fish_Item(R.drawable.trich, "Khô cá Trích","300.000/kg","trich"));
+
         return list;
     }
 
@@ -338,10 +372,7 @@ public class SearchFragment extends Fragment {
                     maxPos = i;
                 }
             }
-            String[] classes = {"bong", "chach", "chivang", "chot", "com", "det", "dong", "du",
-                    "dua", "duoi", "ho", "keo", "khoai", "loc", "longtong", "luoitrau", "mai",
-                    "moi", "muc", "nhai", "nhong", "nuc", "other", "ruoc", "sac", "thieu",
-                    "thoiloi", "thu", "tom", "tren", "trich"};
+            String[] classes = Fish_Item.getClassLabelList(getListFish());
             String predictedClass = classes[maxPos];
 
             Fish_Item returnFish = new Fish_Item(R.drawable.ic_block, "Unknown", "Unknown", "Unknown");

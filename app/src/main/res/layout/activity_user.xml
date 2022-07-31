@@ -101,6 +101,7 @@
                     android:drawablePadding="10dp"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -110,12 +111,17 @@
                 android:textColorHint="@color/black">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/birthday_user"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:drawableLeft="@drawable/baseline_cake_black_24dp"
-                android:drawablePadding="10dp"
-                android:textColor="@color/black" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:drawableLeft="@drawable/baseline_cake_black_24dp"
+                    android:drawablePadding="10dp"
+                    android:textColor="@color/black"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
 

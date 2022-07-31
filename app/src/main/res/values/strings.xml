@@ -5,4 +5,5 @@
     <string name="nav_search">Search</string>
     <string name="showresult_selected_image">INPUT PHOTO</string>
     <string name="showresult_predicted_fish">RESULT</string>
+    <string name="enter_your_birthday_here">Enter your birthday</string>
 </resources>

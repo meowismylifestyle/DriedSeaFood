@@ -3,12 +3,14 @@ package com.example.myapplication;
 import static com.example.myapplication.LoginActivity.currentUser;
 import static com.example.myapplication.LoginActivity.currentUserReference;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,12 +27,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Objects;
 
 public class UserFragment extends Fragment {
 
     Button updateButton;
     TextInputEditText fullnameView, emailView, birthdayView;
+
+    final Calendar birthdayCalendar = Calendar.getInstance();
 
     private View view;
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +62,34 @@ public class UserFragment extends Fragment {
             // Disable editing email in this screen
             emailView.setFocusable(false);
 
+            DatePickerDialog.OnDateSetListener birthdayPicker = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    birthdayCalendar.set(Calendar.YEAR, year);
+                    birthdayCalendar.set(Calendar.MONTH, month);
+                    birthdayCalendar.set(Calendar.DAY_OF_MONTH, day);
+
+                    // Update birthday edit text
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+                    birthdayView.setText(dateFormat.format(birthdayCalendar.getTime()));
+                }
+            };
+
+            birthdayView.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            new DatePickerDialog(
+                                    UserFragment.this.getContext(),
+                                    birthdayPicker,
+                                    birthdayCalendar.get(Calendar.YEAR),
+                                    birthdayCalendar.get(Calendar.MONTH),
+                                    birthdayCalendar.get(Calendar.DAY_OF_MONTH)
+                            ).show();
+                        }
+                    }
+            );
+
             updateButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -62,7 +97,6 @@ public class UserFragment extends Fragment {
                 }
             });
         }
-
         return view;
     }
 
@@ -71,6 +105,11 @@ public class UserFragment extends Fragment {
         currentUser.setEmail(Objects.requireNonNull(emailView.getText()).toString());
         currentUser.setBirthday(Objects.requireNonNull(birthdayView.getText()).toString());
         currentUserReference.setValue(currentUser);
+        Toast.makeText(
+                this.getContext(),
+                "Update information successfully",
+                Toast.LENGTH_LONG
+        ).show();
     }
 
     public UserFragment(){

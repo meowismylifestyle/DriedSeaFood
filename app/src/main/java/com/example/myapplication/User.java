@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import com.google.firebase.database.Exclude;
+
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
@@ -56,10 +58,12 @@ public class User {
         this.year = year;
     }
 
+    @Exclude
     public String getBirthday() {
         return String.format("%s/%s/%s", day, month, year);
     }
 
+    @Exclude
     public void setBirthday(String birthday) {
         String[] parts = birthday
                 .replaceAll("\\s+", "")
@@ -84,6 +88,7 @@ public class User {
         return favouriteFishes;
     }
 
+    @Exclude
     public ArrayList<Fish_Item> getFavouriteFishItem() {
         ArrayList<Fish_Item> allFish = SearchFragment.getListFish();
         ArrayList<Fish_Item> favFish = new ArrayList<>();

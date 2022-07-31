@@ -2,12 +2,14 @@ package com.example.myapplication;
 
 import static com.example.myapplication.LoginActivity.mAuth;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -26,10 +28,16 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class RegisterActivity extends AppCompatActivity {
-    private EditText emailEdit, passEdit, fullName, day, month, year;
+    private EditText emailEdit, passEdit, fullName, birthdayTextEdit;
     private ProgressBar progressBar;
     private Button buttonRegister;
+
+    final Calendar birthdayCalendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -41,9 +49,35 @@ public class RegisterActivity extends AppCompatActivity {
         buttonRegister = findViewById(R.id.btnregis);
         progressBar = findViewById(R.id.progress_bar);
         fullName = findViewById(R.id.fullName);
-        day = findViewById(R.id.day);
-        month = findViewById(R.id.month);
-        year = findViewById(R.id.year);
+        birthdayTextEdit = findViewById(R.id.birthday_EditText);
+
+        DatePickerDialog.OnDateSetListener birthdayPicker = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                birthdayCalendar.set(Calendar.YEAR, year);
+                birthdayCalendar.set(Calendar.MONTH, month);
+                birthdayCalendar.set(Calendar.DAY_OF_MONTH, day);
+
+                // Update birthday edit text
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+                birthdayTextEdit.setText(dateFormat.format(birthdayCalendar.getTime()));
+            }
+        };
+
+        birthdayTextEdit.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new DatePickerDialog(
+                                RegisterActivity.this,
+                                birthdayPicker,
+                                birthdayCalendar.get(Calendar.YEAR),
+                                birthdayCalendar.get(Calendar.MONTH),
+                                birthdayCalendar.get(Calendar.DAY_OF_MONTH)
+                        ).show();
+                    }
+                }
+        );
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,22 +88,31 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void register() {
-        String email, pass, name, day, month, year;
+        String email, pass, name, day, month, year, birthday;
+        day = month = year = "";
 
         email = emailEdit.getText().toString();
         pass = passEdit.getText().toString();
         name = fullName.getText().toString();
-        day = this.day.getText().toString();
-        month = this.month.getText().toString();
-        year = this.year.getText().toString();
+
+        birthday = birthdayTextEdit.getText().toString();
+        String[] dateParts = birthday.split("/");
+
+        boolean validBirthday = false;
+        if (dateParts.length == 3) {
+            day = dateParts[0];
+            month = dateParts[1];
+            year = dateParts[2];
+            validBirthday = true;
+        }
 
         if (TextUtils.isEmpty(name)){
             Toast.makeText(this,"Please enter your name!!",Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (TextUtils.isEmpty(day) || TextUtils.isEmpty(month) || TextUtils.isEmpty(year) ){
-            Toast.makeText(this,"Please enter your age!!",Toast.LENGTH_SHORT).show();
+        if (!validBirthday){
+            Toast.makeText(this,"Please enter your birthday!!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -97,6 +140,9 @@ public class RegisterActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         // Create user on Firebase Authentication service
+        String finalDay = day;
+        String finalMonth = month;
+        String finalYear = year;
         mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener (
                 this,
                 new OnCompleteListener<AuthResult>() {
@@ -117,7 +163,7 @@ public class RegisterActivity extends AppCompatActivity {
                     ).show();
 
                     // And save the registration information to Firebase database
-                    User user = new User(name, day, month, year, email);
+                    User user = new User(name, finalDay, finalMonth, finalYear, email);
                     FirebaseDatabase.getInstance()
                             .getReference("Users")
                             .child(mAuth.getCurrentUser().getUid())
