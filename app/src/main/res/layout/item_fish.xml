@@ -2,7 +2,6 @@
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
@@ -21,10 +20,8 @@
         android:src="@drawable/image1" />
 
     <LinearLayout
-        android:layout_toEndOf="@+id/img_fish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_marginStart="10dp"
         android:orientation="vertical">
 
@@ -43,6 +40,7 @@
             android:layout_height="wrap_content"
             android:text="@string/app_name" />
         <ImageButton
+            android:contentDescription="@string/make_this_your_favourite"
             android:id="@+id/favBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"

@@ -15,7 +15,7 @@
         android:background="@drawable/searchview_background"
         android:iconifiedByDefault="false"
         android:queryBackground="@android:color/transparent"
-        android:queryHint="Search...."
+        android:queryHint="@string/search_bar"
         android:layout_alignParentStart="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

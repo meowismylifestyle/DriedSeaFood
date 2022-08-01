@@ -107,7 +107,7 @@ public class UserFragment extends Fragment {
         currentUserReference.setValue(currentUser);
         Toast.makeText(
                 this.getContext(),
-                "Update information successfully",
+                getResources().getString(R.string.update_info_successfully),
                 Toast.LENGTH_LONG
         ).show();
     }

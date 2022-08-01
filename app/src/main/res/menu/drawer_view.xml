@@ -4,31 +4,32 @@
         <item
             android:id="@+id/nav_search_fragment"
             android:icon="@drawable/baseline_home_black_24dp"
-            android:title="Home" />
+            android:title="@string/home" />
 
         <item
             android:id="@+id/nav_user_fragment"
             android:icon="@drawable/baseline_account_circle_black_24dp"
-            android:title="Account" />
+            android:title="@string/account" />
         <item
             android:id="@+id/nav_favorite_fragment"
             android:icon="@drawable/baseline_favorite_black_24dp"
-            android:title="Favourite" />
+            android:title="@string/favourite" />
         <item
             android:id="@+id/nav_third_fragment"
             android:icon="@drawable/baseline_history_black_24dp"
-            android:title="History" />
+            android:title="@string/history" />
     </group>
-    <item android:title="Settings">
+    <item android:title="@string/settings">
         <menu>
             <group android:checkableBehavior="single">
                 <item
+                    android:id="@+id/nav_choose_language"
                     android:icon="@drawable/baseline_translate_black_24dp"
-                    android:title="Choose Language" />
+                    android:title="@string/choose_language" />
                 <item
                     android:id="@+id/nav_logout_fragment"
                     android:icon="@drawable/baseline_logout_black_24dp"
-                    android:title="LogOut" />
+                    android:title="@string/logout" />
             </group>
         </menu>
     </item>

@@ -124,8 +124,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_search_fragment:
                 fragmentClass = SearchFragment.class;
                 break;
+            case R.id.nav_choose_language:
+                fragmentClass = ChooseLanguageFragment.class;
+                break;
             default:
-                fragmentClass = UserFragment.class;
+                fragmentClass = SearchFragment.class;
         }
 
         try {
@@ -138,12 +141,17 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.flContent, fragment)
+                .addToBackStack(null)
                 .commit();
 
-        // Highlight the selected item has been done by NavigationView
-        menuItem.setChecked(true);
-        // Set action bar title
-        setTitle(menuItem.getTitle());
+        if (fragmentClass != ChooseLanguageFragment.class
+        && fragmentClass != LogOutFragment.class) {
+            // Highlight the selected item has been done by NavigationView
+            menuItem.setChecked(true);
+            // Set action bar title
+            setTitle(menuItem.getTitle());
+        }
+
         // Close the navigation drawer
         mDrawer.closeDrawers();
     }

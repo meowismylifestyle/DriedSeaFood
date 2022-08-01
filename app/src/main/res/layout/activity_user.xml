@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffff">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
             android:background="@drawable/blue_background"
             android:padding="20dp">
 
             <ImageView
+                android:contentDescription="@string/profile_image"
                 android:id="@+id/profile_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -29,11 +28,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/profile_image"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/profile_image"
                 android:fontFamily="@font/bungee"
                 android:includeFontPadding="false"
-                android:text="Dried SeaFood"
+                android:text="@string/app_name"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -43,22 +42,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/labelname"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/profile_image"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/profile_image"
                 android:fontFamily="@font/antic"
-                android:text="Information"
+                android:text="@string/information"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
         </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-100dp"
-            android:padding="20dp">
-
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:hint="Full name"
+                android:hint="@string/full_name"
                 android:textColorHint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -78,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:drawableLeft="@drawable/name"
+                    android:drawableStart="@drawable/name"
                     android:drawablePadding="10dp"
                     android:textColor="@color/black" />
 
@@ -88,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:hint="Email"
+                android:hint="@string/email"
 
                 android:textColorHint="@color/black">
 
@@ -97,7 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:drawableLeft="@drawable/email"
+                    android:drawableStart="@drawable/email"
                     android:drawablePadding="10dp"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -106,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:hint="Birthday"
+                android:hint="@string/birthday"
 
                 android:textColorHint="@color/black">
                 <com.google.android.material.textfield.TextInputEditText
@@ -114,7 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:drawableLeft="@drawable/baseline_cake_black_24dp"
+                    android:drawableStart="@drawable/baseline_cake_black_24dp"
                     android:drawablePadding="10dp"
                     android:textColor="@color/black"
                     android:clickable="false"
@@ -133,7 +123,7 @@
                 android:background="#fece2f"
                 android:backgroundTint="#FECE2F"
                 android:fontFamily="@font/bungee"
-                android:text="Update" />
+                android:text="@string/update" />
         </LinearLayout>
 
     </LinearLayout>

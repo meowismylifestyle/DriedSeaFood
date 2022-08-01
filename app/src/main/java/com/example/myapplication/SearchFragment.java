@@ -194,7 +194,7 @@ public class SearchFragment extends Fragment {
                 Intent pickIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 pickIntent.setType("image/*");
 
-                Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
+                Intent chooserIntent = Intent.createChooser(getIntent, getString(R.string.select_image));
                 chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
 
                 selectPictureActivityResultLauncher.launch(chooserIntent);
@@ -375,7 +375,10 @@ public class SearchFragment extends Fragment {
             String[] classes = Fish_Item.getClassLabelList(getListFish());
             String predictedClass = classes[maxPos];
 
-            Fish_Item returnFish = new Fish_Item(R.drawable.ic_block, "Unknown", "Unknown", "Unknown");
+            Fish_Item returnFish = new Fish_Item(R.drawable.ic_block,
+                    getString(R.string.unknown),
+                    getString(R.string.unknown),
+                    "unknown");
             String confidence = "0.0%";
 
             ArrayList<Fish_Item> fishItems = getListFish();

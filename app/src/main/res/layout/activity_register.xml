@@ -24,23 +24,23 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="FULL NAME"
+        android:text="@string/full_name"
         android:textColor="@color/black"
-        android:textSize="26dp"/>
+        android:textSize="26sp"/>
 
     <EditText
         android:id="@+id/fullName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Full Name"
+        android:hint="@string/full_name"
         android:textColor="@color/black" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="BIRTHDAY"
+        android:text="@string/birthday"
         android:textColor="@color/black"
-        android:textSize="26dp"/>
+        android:textSize="26sp"/>
 
     <EditText
         android:id="@+id/birthday_EditText"
@@ -56,30 +56,30 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="EMAIL"
+        android:text="@string/email"
         android:textColor="@color/black"
-        android:textSize="26dp"/>
+        android:textSize="26sp"/>
 
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="@string/email"
         android:textColor="@color/black"
         android:inputType="textEmailAddress"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="PASSWORD"
+        android:text="@string/password"
         android:textColor="@color/black"
-        android:textSize="26dp"/>
+        android:textSize="26sp"/>
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="@string/password"
         android:textColor="@color/black"
         android:inputType="numberPassword"/>
 
@@ -88,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="REGISTER"
+        android:text="@string/register"
         android:backgroundTint="#76BFF8"
         android:layout_gravity="center"/>
 

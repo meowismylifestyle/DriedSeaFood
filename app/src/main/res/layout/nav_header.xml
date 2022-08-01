@@ -10,8 +10,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dried Fish"
-        android:textSize="50dp"
+        android:text="@string/app_name"
+        android:textSize="50sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>

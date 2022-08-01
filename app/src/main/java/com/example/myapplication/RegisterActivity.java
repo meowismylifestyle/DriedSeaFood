@@ -107,32 +107,32 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (TextUtils.isEmpty(name)){
-            Toast.makeText(this,"Please enter your name!!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.please_enter_your_name), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (!validBirthday){
-            Toast.makeText(this,"Please enter your birthday!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.please_enter_your_birthday), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Please enter your email!!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.please_enter_your_email), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            Toast.makeText(this,"Please enter valid email!!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.please_enter_valid_email),Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(pass)){
-            Toast.makeText(this,"Please enter your password!!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.please_enter_your_password),Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (pass.length() < 6){
-            passEdit.setError("Min password length should be 6 characters");
+            passEdit.setError(getString(R.string.min_password_length_is_6));
             passEdit.requestFocus();
             return;
         }
@@ -158,7 +158,7 @@ public class RegisterActivity extends AppCompatActivity {
                     // Show the toast notification to user
                     // to remind user to check verification email
                     Toast.makeText(RegisterActivity.this,
-                            "Registered Successfully!\nPlease check your email to verify account before you log in!",
+                            getResources().getString(R.string.registered_successfully),
                             Toast.LENGTH_LONG
                     ).show();
 
@@ -188,7 +188,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         // then show toast notification to user
                                         Toast.makeText(
                                                 RegisterActivity.this,
-                                                "Failed to Register!",
+                                                getResources().getString(R.string.failed_to_register),
                                                 Toast.LENGTH_LONG
                                         ).show();
                                     }
@@ -200,7 +200,7 @@ public class RegisterActivity extends AppCompatActivity {
                     // then show toast notification to user
                     Toast.makeText (
                             RegisterActivity.this,
-                            "Failed to Register!",
+                            getResources().getString(R.string.failed_to_register),
                             Toast.LENGTH_LONG
                     ).show();
                     progressBar.setVisibility(View.GONE);
@@ -215,7 +215,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(
                         RegisterActivity.this,
-                        "Failed to register!",
+                        getResources().getString(R.string.failed_to_register),
                         Toast.LENGTH_LONG
                 ).show();
             }

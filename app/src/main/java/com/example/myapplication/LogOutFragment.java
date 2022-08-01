@@ -12,17 +12,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
-//public class LogOutFragment extends AppCompatActivity {
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        LoginActivity.mAuth.signOut();
-//        startActivity(new Intent(LogOutFragment.this,LoginActivity.class));
-//    }
-//    public LogOutFragment(){
-//    }
-//}
-
 public class LogOutFragment extends Fragment {
     public LogOutFragment() {
     }
