@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.SearchManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -117,6 +118,7 @@ public class SearchFragment extends Fragment {
             @SuppressLint("QueryPermissionsNeeded")
             @Override
             public void onClick(View view) {
+                Log.d("SearchFragment", "buttonAddPhoto is clicked");
                 currentPhotoPath = "";
 
                 String[] requiredPermissions = {

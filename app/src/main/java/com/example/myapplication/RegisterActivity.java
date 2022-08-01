@@ -91,8 +91,8 @@ public class RegisterActivity extends AppCompatActivity {
         String email, pass, name, day, month, year, birthday;
         day = month = year = "";
 
-        email = emailEdit.getText().toString();
-        pass = passEdit.getText().toString();
+        email = emailEdit.getText().toString().replaceAll("\\s+", "");
+        pass = passEdit.getText().toString().replaceAll("\\s+", "");
         name = fullName.getText().toString();
 
         birthday = birthdayTextEdit.getText().toString();

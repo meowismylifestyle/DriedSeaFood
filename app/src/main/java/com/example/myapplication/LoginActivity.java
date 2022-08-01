@@ -93,8 +93,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login() {
         String email,pass;
-        email = emailEdit.getText().toString();
-        pass = passEdit.getText().toString();
+        email = emailEdit.getText().toString().replaceAll("\\s+", "");
+        pass = passEdit.getText().toString().replaceAll("\\s+", "");
 
         // Check text edit of email address
         if (TextUtils.isEmpty(email)) {
